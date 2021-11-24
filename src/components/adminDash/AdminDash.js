@@ -1,12 +1,11 @@
 import React, {useState} from "react";
 import {Grid, Container, Typography, CardContent, Button} from "@mui/material";
 import {Icon, Paper,Card} from "@material-ui/core";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import SellIcon from '@mui/icons-material/Sell';
-import CategoryIcon from '@mui/icons-material/Category';
-import FeaturedVideoIcon from '@mui/icons-material/FeaturedVideo';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import HouseboatIcon from '@mui/icons-material/Houseboat';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import {useHistory} from "react-router-dom";
 import './adminDash.css';
 
@@ -28,7 +27,7 @@ function AdminDashboard() {
                                    }
                                }
                         >
-                            <ShoppingCartIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
+                            <CampaignIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
                             <Typography>ANNOUNCEMENT</Typography>
                         </Grid>
                     </Paper>
@@ -44,7 +43,7 @@ function AdminDashboard() {
                                    }
                                }
                         >
-                            <ShoppingBasketIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
+                            <SportsCricketIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
                             <Typography>MATCH</Typography>
                         </Grid>
                     </Paper>
@@ -60,7 +59,7 @@ function AdminDashboard() {
                                    }
                                }
                         >
-                            <SellIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
+                            <LocalAtmIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
                             <Typography>TICKET</Typography>
                         </Grid>
                     </Paper>
@@ -76,7 +75,7 @@ function AdminDashboard() {
                                    }
                                }
                         >
-                            <CategoryIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
+                            <HouseboatIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
                             <Typography>STATDIUM</Typography>
                         </Grid>
                     </Paper>
@@ -92,7 +91,7 @@ function AdminDashboard() {
                                    }
                                }
                         >
-                            <FeaturedVideoIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
+                            <SupervisedUserCircleIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
                             <Typography>USERS</Typography>
                         </Grid>
                     </Paper>

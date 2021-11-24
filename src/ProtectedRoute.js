@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedRouterBuyer = ({ component: Component, ...rest }) => {
+const ProtectedRouterCustomer = ({ component: Component, ...rest }) => {
     const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('token');
     return (
@@ -9,47 +9,7 @@ const ProtectedRouterBuyer = ({ component: Component, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (user) {
-                    if (user.role === 'buyer' && token) {
-                        return <Component {...props} />;
-                    }
-                    else {
-                        return (
-                            <Redirect
-                                to={{
-                                    pathname: '/',
-                                    state: {
-                                        from: props.location,
-                                    },
-                                }}
-                            />
-                        );
-                    }
-                } else {
-                    return (
-                        <Redirect
-                            to={{
-                                pathname: '/login',
-                                state: {
-                                    from: props.location,
-                                },
-                            }}
-                        />
-                    );
-                }
-            }}
-        />
-    );
-};
-
-const ProtectedRouterSeller = ({ component: Component, ...rest }) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = localStorage.getItem('token');
-    return (
-        <Route
-            {...rest}
-            render={(props) => {
-                if (user) {
-                    if (user.role === 'seller' && token) {
+                    if (user.role === 'customer' && token) {
                         return <Component {...props} />;
                     }
                     else {
@@ -149,50 +109,8 @@ const ProtectedRouter = ({ component: Component, ...rest }) => {
     );
 };
 
-const ProtectedRouterBuyerSeller = ({ component: Component, ...rest }) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = localStorage.getItem('token');
-    return (
-        <Route
-            {...rest}
-            render={(props) => {
-                if (user) {
-                    if ((user.role === 'buyer' || user.role === 'seller') && token) {
-                        return <Component {...props} />;
-                    }
-                    else {
-                        return (
-                            <Redirect
-                                to={{
-                                    pathname: '/',
-                                    state: {
-                                        from: props.location,
-                                    },
-                                }}
-                            />
-                        );
-                    }
-                } else {
-                    return (
-                        <Redirect
-                            to={{
-                                pathname: '/login',
-                                state: {
-                                    from: props.location,
-                                },
-                            }}
-                        />
-                    );
-                }
-            }}
-        />
-    );
-};
-
 export {
-    ProtectedRouterBuyer,
-    ProtectedRouterSeller,
+    ProtectedRouterCustomer,
     ProtectedRouterAdmin,
     ProtectedRouter,
-    ProtectedRouterBuyerSeller,
 };
