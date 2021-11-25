@@ -17,6 +17,8 @@ import ViewBooking from "./components/booking/ViewBooking";
 import CreateTicket from "./components/ticket/CreateTicket";
 import CustomerDash from "./components/customerDash/CustomerDash";
 import Ticket from "./components/ticket/Ticket";
+import NotFound from "./components/notFound/Notfound";
+import {ProtectedRouter,ProtectedRouterCustomer,ProtectedRouterAdmin} from "./ProtectedRoute";
 
 const App = () => {
     return (
@@ -25,20 +27,28 @@ const App = () => {
                 <Switch>
                     <Route exact path='/' component={SignIn} />
                     <Route exact path='/signup' component={SignUp} />
-                    <Route exact path='/adminDashboard' component={AdminDash} />
-                    <Route exact path='/userDashboard' component={CustomerDash} />
-                    <Route exact path='/announce-form' component={AnnouncementForm} />
-                    <Route exact path='/announcement' component={Announcement} />
-                    <Route exact path='/users' component={AllUsers} />
-                    <Route exact path='/add-stadium' component={AddStadium} />
-                    <Route exact path='/profile' component={Profile} />
-                    <Route exact path='/stadium' component={ViewStadium} />
-                    <Route exact path='/create-match' component={CreateMatch} />
-                    <Route exact path='/match' component={MatchDetail} />
-                    <Route exact path='/booking' component={AddBooking} />
-                    <Route exact path='/view-booking' component={ViewBooking} />
-                    <Route exact path='/create-ticket' component={CreateTicket} />
-                    <Route exact path='/ticket' component={Ticket} />
+
+
+                    <ProtectedRouterAdmin exact path='/adminDashboard' component={AdminDash} />
+                    <ProtectedRouterAdmin exact path='/announce-form' component={AnnouncementForm} />
+                    <ProtectedRouterAdmin exact path='/users' component={AllUsers} />
+                    <ProtectedRouterAdmin exact path='/add-stadium' component={AddStadium} />
+                    <ProtectedRouterAdmin exact path='/create-match' component={CreateMatch} />
+                    <ProtectedRouterAdmin exact path='/create-ticket' component={CreateTicket} />
+
+
+                    <ProtectedRouterCustomer exact path='/userDashboard' component={CustomerDash} />
+                    <ProtectedRouterCustomer exact path='/booking' component={AddBooking} />
+
+
+                    <ProtectedRouter exact path='/announcement' component={Announcement} />
+                    <ProtectedRouter exact path='/profile' component={Profile} />
+                    <ProtectedRouter exact path='/stadium' component={ViewStadium} />
+                    <ProtectedRouter exact path='/match' component={MatchDetail} />
+                    <ProtectedRouter exact path='/view-booking' component={ViewBooking} />
+                    <ProtectedRouter exact path='/ticket' component={Ticket} />
+
+                    <Route exact path="*" component={NotFound}/>
                 </Switch>
             </BrowserRouter>
         </React.Fragment>
