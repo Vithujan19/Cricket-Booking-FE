@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,8 +12,6 @@ import * as yup from "yup";
 import axios from "axios";
 import baseURL from "../common/baseUrl";
 import {FilledInput, FormControl, IconButton, InputAdornment, InputLabel} from "@mui/material";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import {ToastContainer, toast} from "react-toastify";
@@ -59,21 +56,14 @@ export default function AddStadium() {
             };
 
             await axios
-                .post(`${baseURL}createAdmin`, data, config)
+                .post(`${baseURL}createStadium`, data, config)
                 .then((response) => {
-                    toast.success('Buyer created successfully.')
+                    toast.success('Stadium added successfully.')
                     setUserId(response.data)
                     setSellerCreateStatus('success')
                 })
                 .catch((err) => {
-                    setSellerCreateStatus('fail');
-                    if (err.response.status === 402) {
-                        toast.error("Mobile number already exist. Please try another.")
-                    } else if (err.response.status === 403) {
-                        toast.error("Email already exist. Please try another.")
-                    } else {
-                        toast.error(err.message)
-                    }
+                    toast.error('fail');
                 });
 
         }

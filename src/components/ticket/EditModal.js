@@ -23,7 +23,7 @@ const style = {
 };
 
 export default function ModalButton(props) {
-    const {news} = props;
+    const {data} = props;
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -33,19 +33,19 @@ export default function ModalButton(props) {
 
     const formik = useFormik({
         initialValues: {
-            title: news.title,
-            body: news.body,
+            title: data.title,
+            news: data.news,
 
         },
         validationSchema: yup.object({
             title: yup.string().required('Title is required'),
-            body: yup.string().required('Body is required'),
+            news: yup.string().required('News is required'),
         }),
         onSubmit: async (user) => {
 
             const data = {
                 title: user.title,
-                body: user.body,
+                news: user.last_name,
             }
             const token = localStorage.getItem('token');
             const config = {
@@ -98,7 +98,7 @@ export default function ModalButton(props) {
                                         placeholder="News place"
                                         name="news"
                                         onChange={formik.handleChange}
-                                        value={formik.values.body}
+                                        value={formik.values.news}
                                         style={{ width: '100%' }}
                                     />
                                 </FormControl>

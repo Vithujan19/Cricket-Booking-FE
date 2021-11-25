@@ -7,9 +7,9 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import HouseboatIcon from '@mui/icons-material/Houseboat';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import {useHistory} from "react-router-dom";
-import './adminDash.css';
+import './CustomerDash.css';
 
-function AdminDashboard() {
+function CustomerDash() {
     let history = useHistory()
 
     return(
@@ -23,7 +23,7 @@ function AdminDashboard() {
                             shadowOffset: {height: 1, width: 1},}}
                                onClick={
                                    () => {
-                                       history.push('/announce-form')
+                                       history.push('/announcement')
                                    }
                                }
                         >
@@ -39,7 +39,7 @@ function AdminDashboard() {
                             shadowOffset: {height: 1, width: 1},}}
                                onClick={
                                    () => {
-                                       history.push('/create-match')
+                                       history.push('/match')
                                    }
                                }
                         >
@@ -55,7 +55,7 @@ function AdminDashboard() {
                             shadowOffset: {height: 1, width: 1},}}
                                onClick={
                                    () => {
-                                       history.push('/create-ticket')
+                                       history.push('/ticket')
                                    }
                                }
                         >
@@ -71,7 +71,7 @@ function AdminDashboard() {
                             shadowOffset: {height: 1, width: 1},}}
                                onClick={
                                    () => {
-                                       history.push('/add-stadium')
+                                       history.push('/stadium')
                                    }
                                }
                         >
@@ -87,12 +87,12 @@ function AdminDashboard() {
                             shadowOffset: {height: 1, width: 1},}}
                                onClick={
                                    () => {
-                                       history.push('/users')
+                                       history.push('/view-booking')
                                    }
                                }
                         >
                             <SupervisedUserCircleIcon style={{justifyContent:'center'}} alignItems='center'  fontSize='large' />
-                            <Typography>USERS</Typography>
+                            <Typography>Booking History</Typography>
                         </Grid>
                     </Paper>
                 </Grid>
@@ -101,4 +101,4 @@ function AdminDashboard() {
     )
 }
 
-export default AdminDashboard;
+export default CustomerDash;

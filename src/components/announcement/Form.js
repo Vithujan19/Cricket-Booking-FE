@@ -24,25 +24,25 @@ const theme = createTheme();
 
 export default function SignUp() {
     const history = useHistory();
-    const [sellerCreateStatus, setSellerCreateStatus] = useState();
+    const [news, setNews] = useState();
     const [error, setError] = useState();
     const [userId, setUserId] = useState();
 
     const formik = useFormik({
         initialValues: {
             title: '',
-            news: '',
+            body: '',
 
         },
         validationSchema: yup.object({
             title: yup.string().required('Title is required'),
-            news: yup.string().required('News is required'),
+            body: yup.string().required('News is required'),
         }),
         onSubmit: async (user) => {
 
             const data = {
                 title: user.title,
-                news: user.last_name,
+                body: user.body,
             }
             const token = localStorage.getItem('token');
             const config = {
@@ -53,21 +53,13 @@ export default function SignUp() {
             };
 
             await axios
-                .post(`${baseURL}createAdmin`, data, config)
+                .post(`${baseURL}createNews`, data,config)
                 .then((response) => {
-                    toast.success('Buyer created successfully.')
-                    setUserId(response.data)
-                    setSellerCreateStatus('success')
+                    toast.success('News created successfully.')
+                    setNews(response.data)
                 })
                 .catch((err) => {
-                    setSellerCreateStatus('fail');
-                    if (err.response.status === 402) {
-                        toast.error("Mobile number already exist. Please try another.")
-                    } else if (err.response.status === 403) {
-                        toast.error("Email already exist. Please try another.")
-                    } else {
-                        toast.error(err.message)
-                    }
+                    toast.error('fail');
                 });
 
         }
@@ -117,15 +109,17 @@ export default function SignUp() {
                                     <TextareaAutosize
                                         aria-label="minimum height"
                                         minRows={10}
-                                        placeholder="News place"
-                                        name="news"
+                                        placeholder="body place"
+                                        name="body"
+                                        id="body"
+                                        label="body"
                                         onChange={formik.handleChange}
-                                        value={formik.values.news}
+                                        value={formik.values.body}
                                         style={{ width: '100%' }}
                                     />
-                                    {formik.errors.news ? (
+                                    {formik.errors.body ? (
                                         <div className="text-danger">
-                                            {formik.errors.news}
+                                            {formik.errors.body}
                                         </div>
                                     ) : null}
                                 </FormControl>

@@ -12,6 +12,11 @@ import Profile from './components/users/Profile';
 import ViewStadium from './components/stadium/ViewStatdium';
 import CreateMatch from "./components/match/createMatch";
 import MatchDetail from "./components/match/MatchDetail";
+import AddBooking from "./components/booking/AddBooking";
+import ViewBooking from "./components/booking/ViewBooking";
+import CreateTicket from "./components/ticket/CreateTicket";
+import CustomerDash from "./components/customerDash/CustomerDash";
+import Ticket from "./components/ticket/Ticket";
 
 const App = () => {
     return (
@@ -21,6 +26,7 @@ const App = () => {
                     <Route exact path='/' component={SignIn} />
                     <Route exact path='/signup' component={SignUp} />
                     <Route exact path='/adminDashboard' component={AdminDash} />
+                    <Route exact path='/userDashboard' component={CustomerDash} />
                     <Route exact path='/announce-form' component={AnnouncementForm} />
                     <Route exact path='/announcement' component={Announcement} />
                     <Route exact path='/users' component={AllUsers} />
@@ -29,6 +35,10 @@ const App = () => {
                     <Route exact path='/stadium' component={ViewStadium} />
                     <Route exact path='/create-match' component={CreateMatch} />
                     <Route exact path='/match' component={MatchDetail} />
+                    <Route exact path='/booking' component={AddBooking} />
+                    <Route exact path='/view-booking' component={ViewBooking} />
+                    <Route exact path='/create-ticket' component={CreateTicket} />
+                    <Route exact path='/ticket' component={Ticket} />
                 </Switch>
             </BrowserRouter>
         </React.Fragment>

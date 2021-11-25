@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -32,7 +33,7 @@ export default function SignUp() {
         initialValues: {
             first_name: '',
             last_name: '',
-            display_name: '',
+            role: '',
             mobile: '',
             password: '',
             confirm_password: '',
@@ -45,7 +46,7 @@ export default function SignUp() {
         validationSchema: yup.object({
             first_name: yup.string().required('First Name is required'),
             last_name: yup.string().required('Last Name is required'),
-            display_name: yup.string().required('Display Name is required'),
+            role: yup.string().required('Role Name is required'),
             mobile: yup.string().required('Mobile Number is required'),
             email: yup.string().email().required('Email is required'),
             address_line_1: yup.string().required('Address is required'),
@@ -64,6 +65,7 @@ export default function SignUp() {
             const data = {
                 first_name: user.first_name,
                 last_name: user.last_name,
+                role: user.role,
                 mobile: user.mobile,
                 password: user.password,
                 email: user.email,
@@ -71,6 +73,7 @@ export default function SignUp() {
                 address_line_2: user.address_line_2,
                 city: user.city,
             }
+            console.log(data)
             const token = localStorage.getItem('token');
             const config = {
                 headers: {
@@ -80,9 +83,9 @@ export default function SignUp() {
             };
 
             await axios
-                .post(`${baseURL}createAdmin`, data, config)
+                .post(`${baseURL}createCustomer`, data, config)
                 .then((response) => {
-                    toast.success('Buyer created successfully.')
+                    toast.success('Customer created successfully. ')
                     setUserId(response.data)
                     setSellerCreateStatus('success')
                 })
@@ -136,12 +139,6 @@ export default function SignUp() {
                             alignItems: 'center',
                         }}
                     >
-
-
-                        {/*{sellerCreateStatus === 'fail' ?*/}
-                        {/*    <Alert variant="outlined" severity="error">*/}
-                        {/*        {error}*/}
-                        {/*    </Alert> : null}*/}
                         <Typography component="h1" variant="h5">
                             Sign up
                         </Typography>
@@ -184,6 +181,26 @@ export default function SignUp() {
                                         {formik.errors.last_name ? (
                                             <div className="text-danger">
                                                 {formik.errors.last_name}
+                                            </div>
+                                        ) : null}
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl sx={{width: '100%'}} variant="filled">
+                                        <InputLabel htmlFor="filled-adornment-password">Role</InputLabel>
+                                        <FilledInput
+                                            required
+                                            fullWidth
+                                            id="role"
+                                            label="role"
+                                            name="role"
+                                            autoComplete="role"
+                                            onChange={formik.handleChange}
+                                            value={formik.values.role}
+                                        />
+                                        {formik.errors.role ? (
+                                            <div className="text-danger">
+                                                {formik.errors.role}
                                             </div>
                                         ) : null}
                                     </FormControl>

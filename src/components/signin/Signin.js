@@ -29,7 +29,6 @@ export default function SignIn() {
     const [loginData, setLoginData] = useState({
         email: '',
         password: '',
-        role: '',
     });
 
     const onChange = e => {
@@ -43,40 +42,37 @@ export default function SignIn() {
             },
         };
         try {
-            if (!loginData.role) {
-                setLoginStatus("fail")
-                toast.error("Login Failed. Please select your role.")
-                return;
-            }
             const response = await axios.post(
-                `${baseURL}${loginData.role}Login`,
+                `${baseURL}login`,
                 {
                     email: loginData.email,
                     password: loginData.password
                 },
                 config
             );
-            if (loginData.role === 'buyer') {
-                const {token, buyer} = response.data;
-                localStorage.setItem('token', token);
-                localStorage.setItem('user', JSON.stringify(buyer));
-                // setUser(JSON.stringify(buyer))
-                // console.log("User context : ", user)
-            } else if (loginData.role === 'seller') {
-                const {token, seller} = response.data;
-                localStorage.setItem('token', token);
-                localStorage.setItem('user', JSON.stringify(seller));
-            } else if (loginData.role === 'admin') {
-                const {token, admin} = response.data;
-                localStorage.setItem('token', token);
-                localStorage.setItem('user', JSON.stringify(admin));
-            }
-            // const {token, user} = response.data;
-            // localStorage.setItem('token', token);
-            // localStorage.setItem('user', JSON.stringify(buyer));
+            // if (loginData.role === 'customer') {
+            //     const {token, customer} = response.data;
+            //     localStorage.setItem('token', token);
+            //     localStorage.setItem('user', JSON.stringify(customer));
+            //     window.location.href = "/userDashboard";
+            //     // setUser(JSON.stringify(buyer))
+            //     // console.log("User context : ", user)
+            // } else if (loginData.role === 'admin') {
+            //     const {token, admin} = response.data;
+            //     localStorage.setItem('token', token);
+            //     localStorage.setItem('user', JSON.stringify(admin));
+            //     window.location.href = "/adminDashboard";
+            // }
+            const {token, user} = response.data;
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
             setLoginStatus('success');
             toast.success("Login in Success");
-            window.location.href = "/";
+            if (user.role === 'customer') {
+                window.location.href = "/userDashboard";
+            }else if (user.role === 'admin'){
+                window.location.href = "/adminDashboard";
+            }
         } catch (error) {
             setLoginStatus('fail');
             toast.error("Login Failed.");
@@ -129,12 +125,6 @@ export default function SignIn() {
                             autoComplete="current-password"
                             onChange={(e) => onChange(e)}
                         />
-                        <FormLabel component="legend">Role</FormLabel>
-                        <RadioGroup row aria-label="role" name="role" onChange={(e) => onChange(e)}>
-                            <FormControlLabel value="admin" control={<Radio/>} label="Admin"/>
-                            <FormControlLabel value="buyer" control={<Radio/>} label="Buyer"/>
-                            <FormControlLabel value="seller" control={<Radio/>} label="Seller"/>
-                        </RadioGroup>
                         <Button
                             type="submit"
                             fullWidth

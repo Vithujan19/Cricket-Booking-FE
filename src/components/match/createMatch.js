@@ -12,11 +12,9 @@ import {useFormik} from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import baseURL from "../common/baseUrl";
-import {FilledInput, FormControl, IconButton, InputAdornment, InputLabel} from "@mui/material";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
+import {FilledInput, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, TextField} from "@mui/material";
 import {useHistory} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -25,8 +23,31 @@ const theme = createTheme();
 export default function CreateMatch() {
     const history = useHistory();
     const [sellerCreateStatus, setSellerCreateStatus] = useState();
-    const [error, setError] = useState();
+    const [venue, setVenue] = useState([]);
     const [userId, setUserId] = useState();
+
+    const getAllVenue = async () => {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        await axios
+            .get(`${baseURL}viewAllStadiums`,config)
+            .then((response) => {
+                setVenue(response.data);
+            })
+            .catch((err) => {
+                console.log("Error : ", err.message)
+                console.log('Unable access ...');
+            });
+    };
+
+    useEffect(async () => {
+        await getAllVenue();
+    }, []);
 
     const formik = useFormik({
         initialValues: {
@@ -52,6 +73,7 @@ export default function CreateMatch() {
                 playing_teams: user.playing_teams,
                 status:user.status,
             }
+            console.log(data)
             const token = localStorage.getItem('token');
             const config = {
                 headers: {
@@ -61,21 +83,14 @@ export default function CreateMatch() {
             };
 
             await axios
-                .post(`${baseURL}createAdmin`, data, config)
+                .post(`${baseURL}createMatch`, data, config)
                 .then((response) => {
-                    toast.success('Buyer created successfully.')
+                    toast.success('Match created successfully.')
                     setUserId(response.data)
                     setSellerCreateStatus('success')
                 })
                 .catch((err) => {
                     setSellerCreateStatus('fail');
-                    if (err.response.status === 402) {
-                        toast.error("Mobile number already exist. Please try another.")
-                    } else if (err.response.status === 403) {
-                        toast.error("Email already exist. Please try another.")
-                    } else {
-                        toast.error(err.message)
-                    }
                 });
 
         }
@@ -95,35 +110,48 @@ export default function CreateMatch() {
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <FormControl sx={{width: '100%'}} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Venue</InputLabel>
-                                    <FilledInput
-                                        autoComplete="name"
-                                        name="venue"
-                                        required
+                                    <TextField
+                                        id="filled-select-currency"
+                                        select
                                         fullWidth
-                                        id="venue"
-                                        label="venue"
-                                        autoFocus
-                                        onChange={formik.handleChange}
-                                        value={formik.values.venue}
-                                    />
-                                    {formik.errors.venue ? (
-                                        <div className="text-danger">
-                                            {formik.errors.venue}
-                                        </div>
-                                    ) : null}
+                                        label="Select Main Category"
+                                        onChange={(e) => formik.handleChange(e)}
+                                        helperText="Please select your category"
+                                        variant="outlined"
+                                    >
+                                        {venue.map((option) => (
+                                            <MenuItem key={option._id} value={option._id}>
+                                                {option.name}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                    {/*<InputLabel htmlFor="filled-adornment-password">Venue</InputLabel>*/}
+                                    {/*<FilledInput*/}
+                                    {/*    autoComplete="name"*/}
+                                    {/*    name="venue"*/}
+                                    {/*    required*/}
+                                    {/*    fullWidth*/}
+                                    {/*    id="venue"*/}
+                                    {/*    label="venue"*/}
+                                    {/*    autoFocus*/}
+                                    {/*    onChange={formik.handleChange}*/}
+                                    {/*    value={formik.values.venue}*/}
+                                    {/*/>*/}
+                                    {/*{formik.errors.venue ? (*/}
+                                    {/*    <div className="text-danger">*/}
+                                    {/*        {formik.errors.venue}*/}
+                                    {/*    </div>*/}
+                                    {/*) : null}*/}
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <FormControl sx={{width: '100%'}} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Match date</InputLabel>
                                     <FilledInput
                                         required
                                         fullWidth
                                         id="match_date"
-                                        label="match_date"
                                         name="match_date"
-                                        autoComplete="match_date"
+                                        type="date"
                                         onChange={formik.handleChange}
                                         value={formik.values.match_date}
                                     />

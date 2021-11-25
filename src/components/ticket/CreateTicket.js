@@ -22,7 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme();
 
-export default function AddBooking() {
+export default function CreateTicket() {
     const history = useHistory();
     const [sellerCreateStatus, setSellerCreateStatus] = useState();
     const [error, setError] = useState();
@@ -30,25 +30,22 @@ export default function AddBooking() {
 
     const formik = useFormik({
         initialValues: {
-            customer: '',
-            ticket: '',
-            match: '',
-            ticket_count: '',
+            name: '',
+            price: '',
+            description: '',
 
         },
         validationSchema: yup.object({
-            customer: yup.string().required('Customer is required'),
-            ticket: yup.string().required('Ticket is required'),
-            match: yup.string().required('Match is required'),
-            ticket_count: yup.string().required('Ticket Count is required'),
+            name: yup.string().required('name is required'),
+            price: yup.string().required('price is required'),
+            description: yup.string().required('description is required'),
         }),
         onSubmit: async (user) => {
 
             const data = {
-                customer: user.customer,
-                ticket: user.ticket,
-                match: user.match,
-                ticket_count: user.ticket_count,
+                name: user.name,
+                price: user.price,
+                description: user.description,
             }
             const token = localStorage.getItem('token');
             const config = {
@@ -87,7 +84,7 @@ export default function AddBooking() {
                 <Box>
 
                     <Typography component="h1" variant="h5" style={{textAlign:"center",paddingBottom:10}}>
-                        Book for Match
+                        Add Ticket for Customer
                     </Typography>
                     <form autoComplete="off" onSubmit={formik.handleSubmit}>
                         <Grid container spacing={2}>
@@ -95,101 +92,59 @@ export default function AddBooking() {
                                 <FormControl sx={{width: '100%'}} variant="filled">
                                     <InputLabel htmlFor="filled-adornment-password">Name</InputLabel>
                                     <FilledInput
-                                        autoComplete="customer"
-                                        name="customer"
+                                        autoComplete="name"
+                                        name="name"
                                         required
                                         fullWidth
-                                        id="customer"
+                                        id="name"
                                         label="Name"
                                         autoFocus
                                         onChange={formik.handleChange}
-                                        value={formik.values.customer}
+                                        value={formik.values.name}
                                     />
-                                    {formik.errors.customer ? (
+                                    {formik.errors.name ? (
                                         <div className="text-danger">
-                                            {formik.errors.customer}
+                                            {formik.errors.name}
                                         </div>
                                     ) : null}
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <FormControl sx={{width: '100%'}} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Country</InputLabel>
+                                    <InputLabel htmlFor="filled-adornment-password">Price</InputLabel>
                                     <FilledInput
                                         required
                                         fullWidth
-                                        id="country"
-                                        label="Country"
-                                        name="country"
-                                        autoComplete="country"
+                                        id="price"
+                                        label="price"
+                                        name="price"
+                                        autoComplete="price"
                                         onChange={formik.handleChange}
-                                        value={formik.values.country}
+                                        value={formik.values.price}
                                     />
-                                    {formik.errors.country ? (
+                                    {formik.errors.price ? (
                                         <div className="text-danger">
-                                            {formik.errors.country}
+                                            {formik.errors.price}
                                         </div>
                                     ) : null}
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <FormControl sx={{width: '100%'}} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Ticket</InputLabel>
+                                    <InputLabel htmlFor="filled-adornment-password">Description</InputLabel>
                                     <FilledInput
                                         required
                                         fullWidth
-                                        id="ticket"
-                                        label="ticket"
-                                        name="ticket"
-                                        autoComplete="ticket"
+                                        id="description"
+                                        label="description"
+                                        name="description"
+                                        autoComplete="description"
                                         onChange={formik.handleChange}
-                                        value={formik.values.ticket}
+                                        value={formik.values.description}
                                     />
-                                    {formik.errors.ticket ? (
+                                    {formik.errors.description ? (
                                         <div className="text-danger">
-                                            {formik.errors.ticket}
-                                        </div>
-                                    ) : null}
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <FormControl sx={{width: '100%'}} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Match</InputLabel>
-                                    <FilledInput
-                                        autoComplete="place"
-                                        name="match"
-                                        required
-                                        fullWidth
-                                        id="match"
-                                        label="match"
-                                        autoFocus
-                                        onChange={formik.handleChange}
-                                        value={formik.values.match}
-                                    />
-                                    {formik.errors.match ? (
-                                        <div className="text-danger">
-                                            {formik.errors.match}
-                                        </div>
-                                    ) : null}
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <FormControl sx={{width: '100%'}} variant="filled">
-                                    <InputLabel htmlFor="filled-adornment-password">Ticket count</InputLabel>
-                                    <FilledInput
-                                        autoComplete="place"
-                                        name="ticket_count"
-                                        required
-                                        fullWidth
-                                        id="ticket_count"
-                                        label="ticket_count"
-                                        autoFocus
-                                        onChange={formik.handleChange}
-                                        value={formik.values.ticket_count}
-                                    />
-                                    {formik.errors.ticket_count ? (
-                                        <div className="text-danger">
-                                            {formik.errors.ticket_count}
+                                            {formik.errors.description}
                                         </div>
                                     ) : null}
                                 </FormControl>
