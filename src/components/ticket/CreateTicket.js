@@ -78,7 +78,7 @@ export default function CreateTicket() {
             variant="h5"
             style={{ textAlign: 'center', paddingBottom: 10 }}
           >
-            Add Ticket for Customer
+            Add Ticket
           </Typography>
           <form autoComplete="off" onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
@@ -153,7 +153,7 @@ export default function CreateTicket() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Add Stadium
+              Add Ticket
             </Button>
           </form>
         </Box>

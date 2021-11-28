@@ -64,7 +64,7 @@ function Announcement() {
           variant="h5"
           style={{ textAlign: 'center', paddingTop: 20 }}
         >
-          Announcements
+          News
         </Typography>
       </Grid>
       {isLoading
@@ -104,6 +104,7 @@ function Announcement() {
                 sm={12}
               >
                 <button onClick={() => setDeleteNews(e)}>Delete</button>
+                <button onClick={() => setDeleteNews(e)}>Edit</button>
                 {/* <EditModal news={e} /> */}
               </Grid>
             </Grid>

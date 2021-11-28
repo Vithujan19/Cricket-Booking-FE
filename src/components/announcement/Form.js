@@ -80,7 +80,7 @@ export default function SignUp() {
             variant="h5"
             style={{ textAlign: 'center', padding: 10 }}
           >
-            Create Announcement
+            Create New News
           </Typography>
           <form autoComplete="off" onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
@@ -132,7 +132,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Create Announcement
+              Publish News
             </Button>
           </form>
         </Box>
